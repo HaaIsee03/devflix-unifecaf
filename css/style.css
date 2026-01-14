@@ -1,0 +1,319 @@
+/* ==========================================================================
+   1. SISTEMA DE DESIGN (VARIÁVEIS)
+   ========================================================================== */
+:root {
+    /* Cores de Fundo e Superfície */
+    --bg: #050507;
+    --surface: #111114;
+    --surface-glass: rgba(17, 17, 20, 0.85);
+    
+    /* Acentos e Identidade (Roxo Neon) */
+    --primary: #8257e5; 
+    --primary-glow: rgba(130, 87, 229, 0.3);
+    
+    /* Tipografia e Estados */
+    --text-main: #f5f5f7;
+    --text-muted: #8e8e93;
+    --border: rgba(255, 255, 255, 0.08);
+    
+    /* Animações Modernas */
+    --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Reset Profissional */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    -webkit-font-smoothing: antialiased;
+}
+
+body { 
+    background-color: var(--bg); 
+    color: var(--text-main); 
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Scrollbar Customizada (Estilo Gamer/Hardware) */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { 
+    background: var(--primary); 
+    border-radius: 10px; 
+}
+
+/* ==========================================================================
+   2. COMPONENTES GERAIS
+   ========================================================================== */
+.container { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 24px; 
+}
+
+.hidden { display: none !important; }
+
+/* Header com Efeito Glassmorphism */
+header.main-header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-glass);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo { 
+    font-weight: 800; 
+    font-size: 1.5rem; 
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.highlight { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+
+/* ==========================================================================
+   3. TELA HOME (SELEÇÃO DE UNIVERSOS)
+   ========================================================================== */
+.intro { text-align: center; padding: 80px 0 40px; animation: fadeIn 1s ease; }
+.intro h1 { font-size: 3rem; font-weight: 800; letter-spacing: -1px; }
+
+.cards-grid { 
+    display: flex; 
+    gap: 24px; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+}
+
+.card-serie {
+    background: var(--surface);
+    width: 320px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.card-serie:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--primary-glow);
+}
+
+.card-image { 
+    height: 180px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 30px;
+    background: radial-gradient(circle at center, #1a1a1e, #111114);
+}
+
+.card-image img { 
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; 
+}
+
+/* ==========================================================================
+   4. TELA DE DETALHES (SISTEMA RESILIENTE)
+   ========================================================================== */
+.btn-voltar {
+    background: var(--surface);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 24px;
+    transition: var(--transition);
+}
+
+.btn-voltar:hover { background: var(--primary); color: white; }
+
+.hero-detalhe {
+    display: flex; 
+    gap: 48px;
+    padding: 40px;
+    background: var(--surface);
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    animation: slideUp 0.6s ease;
+}
+
+/* FIX: Restrição de tamanho da Capa (Evita quebra de layout) */
+.capa-container { 
+    width: 300px; 
+    height: 440px; 
+    flex-shrink: 0; 
+    border-radius: 16px; 
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    background: #000;
+}
+
+#img-capa { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+.info-detalhe { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.info-detalhe h1 { font-size: 3.5rem; margin-bottom: 10px; line-height: 1.1; }
+
+.badge-nota { 
+    background: var(--primary); 
+    padding: 6px 14px; 
+    border-radius: 6px; 
+    font-weight: 800; 
+    display: inline-block;
+}
+
+.sinopse { margin: 24px 0; color: var(--text-muted); font-size: 1.1rem; max-width: 650px; }
+
+/* FIX: Controle de Logos de Streaming (Evita "Explosão" de imagem) */
+.tags-streaming { 
+    display: flex; 
+    gap: 24px; 
+    align-items: center; 
+    margin-top: 20px; 
+    flex-wrap: wrap; 
+}
+
+.stream-logo { 
+    height: 32px; 
+    width: auto; 
+    max-width: 110px; 
+    object-fit: contain; 
+    filter: brightness(0.9);
+    transition: var(--transition);
+}
+
+.stream-logo:hover { transform: scale(1.1); filter: brightness(1.1); }
+
+/* ==========================================================================
+   5. FILTRAGEM E GRID DE PERSONAGENS
+   ========================================================================== */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 60px;
+}
+
+#input-busca {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    width: 300px;
+    outline: none;
+    transition: 0.3s;
+}
+
+#input-busca:focus { 
+    border-color: var(--primary); 
+    box-shadow: 0 0 15px var(--primary-glow); 
+}
+
+.grid-personagens {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+    padding-bottom: 80px;
+}
+
+.card-person {
+    background: var(--surface);
+    padding: 16px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.card-person:hover { border-color: var(--primary); transform: translateY(-8px); }
+
+.card-person img { 
+    width: 100%; 
+    aspect-ratio: 1/1; 
+    border-radius: 14px; 
+    object-fit: cover; 
+    margin-bottom: 12px; 
+}
+
+/* ==========================================================================
+   6. SIDEBAR WIKIPEDIA (Efeito de Deslize)
+   ========================================================================== */
+#overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 150;
+    transition: opacity 0.4s ease;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 500px;
+    height: 100%;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    z-index: 200;
+    padding: 40px;
+    transform: translateX(100%);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto;
+}
+
+.sidebar.active { transform: translateX(0); }
+
+/* Estilo interno da Sidebar (Resultados da Wikipédia) */
+.sidebar h2 { color: var(--primary); margin-bottom: 15px; font-size: 2rem; }
+.sidebar hr { border: 0; border-top: 1px solid var(--border); margin: 20px 0; }
+.sidebar p { color: var(--text-main); font-size: 1.05rem; margin-bottom: 15px; }
+.sidebar em { color: var(--text-muted); font-size: 0.9rem; }
+
+/* Botão Fechar da Sidebar */
+.btn-fechar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* ==========================================================================
+   7. KEYFRAMES & RESPONSIVIDADE
+   ========================================================================== */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { 
+    from { opacity: 0; transform: translateY(30px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+@media (max-width: 900px) {
+    .hero-detalhe { flex-direction: column; align-items: center; text-align: center; padding: 25px; }
+    .capa-container { width: 220px; height: 320px; }
+    .sidebar { width: 100%; }
+    .section-header { flex-direction: column; gap: 20px; }
+    #input-busca { width: 100%; }
+    .info-detalhe h1 { font-size: 2.5rem; }
+}

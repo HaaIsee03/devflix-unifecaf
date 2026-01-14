@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevFlix | Hub de Dados Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050507;
+            --surface: #111114;
+            --surface-glass: rgba(17, 17, 20, 0.85);
+            --primary: #8257e5; 
+            --primary-glow: rgba(130, 87, 229, 0.4);
+            --text-main: #f5f5f7;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text-main); font-family: 'Outfit', sans-serif; line-height: 1.6; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 30px; }
+        .hidden { display: none !important; }
+
+        header { height: 80px; display: flex; align-items: center; justify-content: center; background: var(--surface-glass); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 800; font-size: 1.8rem; letter-spacing: 3px; text-transform: uppercase; }
+        .highlight { color: var(--primary); text-shadow: 0 0 20px var(--primary-glow); }
+
+        /* HERO SECTION */
+        .hero-section { display: flex; gap: 60px; padding: 50px; border-radius: 40px; background: linear-gradient(135deg, rgba(130, 87, 229, 0.05) 0%, rgba(0,0,0,0) 100%), var(--surface); border: 1px solid var(--border); margin: 30px 0; align-items: center; }
+        .capa-box { width: 300px; height: 430px; flex-shrink: 0; border-radius: 25px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border: 1px solid var(--border); background: #000; display: flex; align-items: center; justify-content: center; }
+        #img-capa { width: 100%; height: 100%; object-fit: cover; }
+        .hero-logo-img { object-fit: contain !important; padding: 40px; }
+
+        .info-box h1 { font-size: 4rem; font-weight: 800; }
+        .rating-badge { background: var(--primary); padding: 8px 18px; border-radius: 12px; font-weight: 800; display: inline-block; margin: 15px 0; }
+
+        /* GRID CARDS */
+        .grid-personagens { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; margin-top: 50px; padding-bottom: 80px; }
+        .card-person { background: var(--surface); padding: 20px; border-radius: 24px; text-align: center; border: 1px solid var(--border); cursor: pointer; transition: 0.3s; }
+        .card-person:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: 0 0 20px var(--primary-glow); }
+        .card-person img { width: 100%; aspect-ratio: 1/1; border-radius: 18px; object-fit: cover; margin-bottom: 15px; background: #1a1a20; }
+
+        /* SIDEBAR PRO */
+        #overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); z-index: 1500; }
+        .sidebar { position: fixed; top: 0; right: 0; width: 500px; height: 100%; background: #0c0c0f; z-index: 2000; transform: translateX(100%); transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); border-left: 1px solid var(--border); overflow-y: auto; }
+        .sidebar.active { transform: translateX(0); }
+        .sidebar-content { padding: 40px; }
+
+        .data-sheet { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
+        .data-item { background: #16161a; padding: 15px; border-radius: 15px; border: 1px solid var(--border); text-align: center; }
+        .data-label { font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; display: block; }
+        .data-value { font-size: 1.2rem; font-weight: 500; color: white; }
+
+        .btn-close { position: absolute; top: 30px; right: 30px; background: rgba(255,255,255,0.05); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <header><div class="logo">DEV<span class="highlight">FLIX</span></div></header>
+
+    <main id="tela-home" class="container">
+        <section style="text-align: center; padding: 60px 0;">
+            <h1 style="font-size: 3.5rem; font-weight: 800;">Escolha seu Universo</h1>
+            <p style="color: var(--text-muted);">Sincronizando dados técnicos e biográficos mestre.</p>
+        </section>
+        
+        <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
+            <article class="card-person" style="width: 350px;" onclick="abrirSerie('rick')">
+                <div style="height: 200px; display: flex; align-items: center; justify-content: center; padding: 30px;"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Rick_and_Morty.svg" style="object-fit: contain; width: 100%;"></div>
+                <h3>Rick and Morty</h3>
+            </article>
+            <article class="card-person" style="width: 350px;" onclick="abrirSerie('pokemon')">
+                <div style="height: 200px; display: flex; align-items: center; justify-content: center; padding: 30px;"><img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" style="object-fit: contain; width: 100%;"></div>
+                <h3>Pokémon</h3>
+            </article>
+        </div>
+    </main>
+
+    <main id="tela-detalhes" class="container hidden">
+        <button onclick="voltarHome()" style="background:var(--surface); border:1px solid var(--border); color:white; padding:12px 24px; border-radius:12px; cursor:pointer; margin:20px 0; font-weight:800;">⬅ VOLTAR AO HUB</button>
+        
+        <section class="hero-section">
+            <div class="capa-box"><img id="img-capa" src=""></div>
+            <div class="info-box">
+                <h1 id="titulo-serie"></h1>
+                <span id="nota-serie" class="rating-badge"></span>
+                <p id="desc-serie" style="margin: 20px 0; color: var(--text-muted); max-width: 600px; font-size: 1.1rem;"></p>
+                <div id="logos-streaming" style="display: flex; gap: 20px; align-items: center;"></div>
+            </div>
+        </section>
+
+        <div id="grid-personagens" class="grid-personagens"></div>
+    </main>
+
+    <div id="overlay" class="hidden" onclick="fecharSidebar()"></div>
+    <aside id="sidebar" class="sidebar">
+        <button class="btn-close" onclick="fecharSidebar()">✕</button>
+        <div class="sidebar-content">
+            <h2 id="side-nome" style="color: var(--primary); font-size: 2.8rem; font-weight: 800; margin-bottom: 20px;"></h2>
+            <div class="data-sheet">
+                <div class="data-item"><span class="data-label">Altura</span><span class="data-value" id="spec-altura">--</span></div>
+                <div class="data-item"><span class="data-label">Peso</span><span class="data-value" id="spec-peso">--</span></div>
+            </div>
+            <div id="bio-txt" style="color: var(--text-muted); line-height: 1.8; font-size: 1.1rem; text-align: justify;"></div>
+        </div>
+    </aside>
+
+    <script>
+        const config = {
+            logos: { "Netflix": "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg", "Max": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Max_logo.svg", "Prime Video": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png" },
+            series: {
+                rick: { titulo: "Rick and Morty", context: "Rick_and_Morty", nota: "⭐ 9.2", streaming: ["Max", "Netflix"], imagem: "https://m.media-amazon.com/images/M/MV5BZjRjOTFkOTktZWUzMi00YzMyLThkMmYtMjEwNmQyNzliYTNmXkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_.jpg", desc: "Aventuras multiversais do gênio Rick e seu neto Morty.", isLogo: false },
+                pokemon: { titulo: "Pokémon", context: "Pokémon", nota: "⭐ 7.6", streaming: ["Netflix", "Prime Video"], imagem: "https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg", desc: "A jornada de Ash e Pikachu para se tornarem mestres Pokémon.", isLogo: true }
+            }
+        };
+
+        let currentWikiContext = "";
+
+        async function traduzirBio(texto) {
+            if (!texto) return "";
+            const trecho = texto.substring(0, 450); 
+            try {
+                const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(trecho)}&langpair=en|pt`);
+                const data = await res.json();
+                const trad = data.responseData.translatedText;
+                return (trad.includes("MYMEMORY") || trad.includes("YOU USED")) ? trecho : trad;
+            } catch { return trecho; }
+        }
+
+        function abrirSerie(id) {
+            const info = config.series[id];
+            currentWikiContext = info.context;
+            document.getElementById('tela-home').classList.add('hidden');
+            document.getElementById('tela-detalhes').classList.remove('hidden');
+            document.getElementById('titulo-serie').textContent = info.titulo;
+            document.getElementById('desc-serie').textContent = info.desc;
+            document.getElementById('nota-serie').textContent = info.nota;
+            
+            const imgCapa = document.getElementById('img-capa');
+            imgCapa.src = info.imagem;
+            info.isLogo ? imgCapa.classList.add('hero-logo-img') : imgCapa.classList.remove('hero-logo-img');
+            
+            document.getElementById('logos-streaming').innerHTML = info.streaming
+                .map(s => `<img src="${config.logos[s]}" style="height:35px;">`).join('');
+            carregarAPI(id);
+        }
+
+        async function carregarAPI(id) {
+            const grid = document.getElementById('grid-personagens');
+            grid.innerHTML = '🔄 Sincronizando...';
+            try {
+                const url = id === 'rick' ? 'https://rickandmortyapi.com/api/character' : 'https://pokeapi.co/api/v2/pokemon?limit=15';
+                const data = await fetch(url).then(r => r.json());
+                grid.innerHTML = '';
+                if (id === 'rick') {
+                    data.results.slice(0, 15).forEach(p => criarCard(p.name, p.image, p.status));
+                } else {
+                    for (let p of data.results) {
+                        const det = await fetch(p.url).then(r => r.json());
+                        criarCard(det.name, det.sprites.other['official-artwork'].front_default, "POCKET MONSTER", det.id);
+                    }
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function criarCard(nome, img, status, pokeId = null) {
+            const div = document.createElement('div');
+            div.className = 'card-person';
+            div.onclick = () => abrirBio(nome, pokeId);
+            div.innerHTML = `<img src="${img}"><h4>${nome.toUpperCase()}</h4><p style="font-size:0.8rem; color:var(--text-muted)">${status}</p>`;
+            document.getElementById('grid-personagens').appendChild(div);
+        }
+
+        /* LÓGICA DE BUSCA WIKIPEDIA COM TRATAMENTO DE CASE E FALLBACK */
+        async function abrirBio(nome, pokeId) {
+            document.getElementById('side-nome').textContent = nome.toUpperCase();
+            document.getElementById('bio-txt').textContent = "Consultando base global...";
+            document.getElementById('sidebar').classList.add('active');
+            document.getElementById('overlay').classList.remove('hidden');
+
+            try {
+                if (pokeId) {
+                    const pokeData = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}`).then(r => r.json());
+                    document.getElementById('spec-altura').textContent = (pokeData.height / 10).toFixed(1) + " m";
+                    document.getElementById('spec-peso').textContent = (pokeData.weight / 10).toFixed(1) + " kg";
+                }
+
+                // RESOLUÇÃO DE TÍTULO: Case-Sensitive Correction
+                // Transforma "BULBASAUR" em "Bulbasaur" para a API da Wikipedia
+                const nomeWiki = nome.charAt(0).toUpperCase() + nome.slice(1).toLowerCase();
+                const variações = [nomeWiki, `${nomeWiki}_(Pokémon)`, `${nomeWiki}_(character)`];
+                
+                let biografia = "";
+                for (let termo of variações) {
+                    const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(termo.replace(/\s+/g, '_'))}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.type !== 'disambiguation') {
+                            biografia = data.extract;
+                            break;
+                        }
+                    }
+                }
+
+                document.getElementById('bio-txt').innerHTML = biografia ? await traduzirBio(biografia) : "Dados biográficos indisponíveis nesta região da Wikipedia.";
+            } catch { document.getElementById('bio-txt').textContent = "Erro na sincronização."; }
+        }
+
+        function fecharSidebar() { document.getElementById('sidebar').classList.remove('active'); document.getElementById('overlay').classList.add('hidden'); }
+        function voltarHome() { document.getElementById('tela-detalhes').classList.add('hidden'); document.getElementById('tela-home').classList.remove('hidden'); window.scrollTo(0,0); }
+    </script>
+</body>
+</html>

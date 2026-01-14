@@ -1,6 +1,6 @@
 # 🎬 DevFlix | Hub de Séries e Personagens
 
-[cite_start]Este é um projeto de Front-End desenvolvido para a disciplina de **Web Development** da **UniFECAF**[cite: 4, 20]. A aplicação consome dados em tempo real de múltiplas APIs para exibir informações detalhadas sobre universos de animação.
+Este é um projeto de Front-End desenvolvido para a disciplina de **Web Development** da **UniFECAF**[cite: 4, 20]. A aplicação consome dados em tempo real de múltiplas APIs para exibir informações detalhadas sobre universos de animação.
 
 ## 🚀 Funcionalidades
 - **Consumo Dinâmico**: Dados obtidos via Fetch API.
